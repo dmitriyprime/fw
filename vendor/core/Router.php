@@ -25,15 +25,25 @@ class Router
     {
         foreach (self::$routes as $pattern => $route)
         {
-            var_dump($pattern);
-            var_dump($route);
-            var_dump($url);
-            if($url == $pattern)
+            if(preg_match("#$pattern#i", $url, $matches))
             {
+                debug($matches);
                 self::$route = $route;
                 return true;
             }
         }
         return false;
+    }
+
+    public static function dispatch($url)
+    {
+        if(self::matchRoute($url))
+        {
+            echo 'OK';
+        } else
+            {
+                http_response_code(404);
+                include '404.html';
+            }
     }
 }
