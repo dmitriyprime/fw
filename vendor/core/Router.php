@@ -21,6 +21,11 @@ class Router
         return self::$route;
     }
 
+    /**
+     * Finds the URL in routes table
+     * @param string $url incoming URL
+     * @return bool
+     */
     public static function matchRoute($url)
     {
         foreach (self::$routes as $pattern => $route)
@@ -47,15 +52,49 @@ class Router
         return false;
     }
 
+
+    /**
+     * Redirects URL accordingly to proper route
+     * @param string $url incoming URL
+     * @return void
+     */
     public static function dispatch($url)
     {
         if(self::matchRoute($url))
         {
-            $controller = self::$route['controller'];
+            $controller = self::upperCamelCase(self::$route['controller']);
+            if(class_exists($controller))
+            {
+                $cObj = new $controller;
+                $action = self::lowerCamelCase(self::$route['action']) . 'Action';
+                debug($action);
+                if(method_exists($cObj, $action))
+                {
+                    $cObj->$action();
+                } else
+                    {
+                        echo "Method $controller::$action was not found";
+                    }
+            } else
+                {
+                    echo "Controller $controller was not found";
+                }
+
         } else
             {
                 http_response_code(404);
                 include '404.html';
             }
     }
+
+    protected static function upperCamelCase($name)
+    {
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $name)));
+    }
+
+    protected static function lowerCamelCase($name)
+    {
+        return lcfirst(self::upperCamelCase($name));
+    }
+
 }
