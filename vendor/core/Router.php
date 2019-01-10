@@ -27,7 +27,19 @@ class Router
         {
             if(preg_match("#$pattern#i", $url, $matches))
             {
-                debug($matches);
+                foreach ($matches as $k => $v)
+                {
+                    if(is_string($k))
+                    {
+                        $route[$k] = $v;
+                    }
+                }
+
+                if(!isset($route['action']))
+                {
+                    $route['action'] = 'index';
+                }
+
                 self::$route = $route;
                 return true;
             }
@@ -39,7 +51,7 @@ class Router
     {
         if(self::matchRoute($url))
         {
-            echo 'OK';
+            $controller = self::$route['controller'];
         } else
             {
                 http_response_code(404);
