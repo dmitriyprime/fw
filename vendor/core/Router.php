@@ -1,5 +1,8 @@
 <?php
 
+namespace vendor\core;
+
+
 class Router
 {
     protected static $routes = [];
@@ -28,22 +31,19 @@ class Router
      */
     public static function matchRoute($url)
     {
-        foreach (self::$routes as $pattern => $route)
-        {
-            if(preg_match("#$pattern#i", $url, $matches))
-            {
-                foreach ($matches as $k => $v)
-                {
-                    if(is_string($k))
-                    {
+        foreach (self::$routes as $pattern => $route) {
+            if (preg_match("#$pattern#i", $url, $matches)) {
+                foreach ($matches as $k => $v) {
+                    if (is_string($k)) {
                         $route[$k] = $v;
                     }
                 }
 
-                if(!isset($route['action']))
-                {
+                if (!isset($route['action'])) {
                     $route['action'] = 'index';
                 }
+
+                $route['controller'] = self::upperCamelCase($route['controller']);
 
                 self::$route = $route;
                 return true;
@@ -60,31 +60,27 @@ class Router
      */
     public static function dispatch($url)
     {
-        if(self::matchRoute($url))
-        {
-            $controller = self::upperCamelCase(self::$route['controller']);
-            if(class_exists($controller))
-            {
-                $cObj = new $controller;
-                $action = self::lowerCamelCase(self::$route['action']) . 'Action';
-                debug($action);
-                if(method_exists($cObj, $action))
-                {
-                    $cObj->$action();
-                } else
-                    {
-                        echo "Method $controller::$action was not found";
-                    }
-            } else
-                {
-                    echo "Controller $controller was not found";
-                }
+        $url = self::removeQueryString($url); var_dump($url);
 
-        } else
-            {
-                http_response_code(404);
-                include '404.html';
+        if (self::matchRoute($url)) {
+            $controller = 'app\controllers\\' . self::$route['controller'];
+            if (class_exists($controller)) {
+                $cObj = new $controller(self::$route);
+                $action = self::lowerCamelCase(self::$route['action']) . 'Action';
+
+                if (method_exists($cObj, $action)) {
+                    $cObj->$action();
+                } else {
+                    echo "Method $controller::$action was not found";
+                }
+            } else {
+                echo "Controller $controller was not found";
             }
+
+        } else {
+            http_response_code(404);
+            include '404.html';
+        }
     }
 
     protected static function upperCamelCase($name)
@@ -95,6 +91,20 @@ class Router
     protected static function lowerCamelCase($name)
     {
         return lcfirst(self::upperCamelCase($name));
+    }
+
+    protected static function removeQueryString($url)
+    {
+        if($url) {
+            $params = explode('&', $url, 2);
+            if(false === strpos($params[0], '=')) {
+                return rtrim($params[0], '/');
+            } else {
+                return '';
+            }
+        }
+        debug($url);
+        return $url;
     }
 
 }
