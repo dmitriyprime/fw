@@ -22,7 +22,7 @@
 </head>
 <body style="max-width: 1200px; margin: 0 auto; border: 3px solid #ccc; border-radius: 10px">
 
-    <h2 style="text-align: center;">Hello from <b>default layout</b>!</h2>
+    <h2 style="text-align: center;">Hello from <b>test layout</b>!</h2>
 
     <?php if(!empty($menu)): ?>
 
@@ -37,9 +37,6 @@
     <?php endif; ?>
 
     <?=$content ?>
-
-    <?//=debug(\vendor\core\Db::$countSql ) ?>
-    <?//=debug(\vendor\core\Db::$queries) ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>

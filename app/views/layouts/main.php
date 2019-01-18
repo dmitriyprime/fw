@@ -18,7 +18,7 @@
     <![endif]-->
 </head>
 <body>
-    <h2>Hello, world from <b>main layout</b>!</h2>
+    <h2 style="text-align: center;">Hello, world from <b>main layout</b>!</h2>
 
     <?=$content ?>
 

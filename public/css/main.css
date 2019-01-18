@@ -1,0 +1,10 @@
+.nav-pills {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.panel-heading {
+    text-align: center;
+    font-size: 20px;
+    color: brown !important;
+}
