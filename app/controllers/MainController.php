@@ -34,6 +34,14 @@ class MainController extends AppController
 
     public function testAction()
     {
+        if ($this->isAjax()){
+            echo 'AJAX';
+            die();
+        }
+        echo 222;
         $this->layout = 'test';
+        $this->setMeta('Home page', 'This is home page description', 'This is home page keywords');
+        $meta = $this->meta;
+        $this->set(compact('meta'));
     }
 }
