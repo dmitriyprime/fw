@@ -5,9 +5,10 @@ namespace vendor\core;
 
 class Db
 {
+    use TSingletone;
 
     protected $pdo;
-    protected static $instance;
+//    protected static $instance;
     public static $countSql = 0;
     public static $queries = [];
 
@@ -29,13 +30,13 @@ class Db
 
     }
 
-    public static function instance()
+    /*public static function instance()
     {
         if(null === self::$instance) {
             self::$instance = new self();
         }
         return self::$instance;
-    }
+    }*/
 
     /*public function execute($sql, $params = []) {
         self::$queries[] = $sql;
