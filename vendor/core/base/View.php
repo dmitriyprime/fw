@@ -46,14 +46,16 @@ class View
             extract($vars);
         }
 
-        $file_view = APP . "/views/{$this->route['controller']}/{$this->view}.php";
+        $file_view = APP . "/views/{$this->route['prefix']}{$this->route['controller']}/{$this->view}.php";
+        $file_view = str_replace('\\', '/', $file_view);
 
         ob_start();
 
         if(file_exists($file_view)) {
             require_once $file_view;
         } else {
-            echo "<p>View file <b>$file_view</b> is not found ...</p>";
+//            echo "<p>View file <b>$file_view</b> is not found ...</p>";
+            throw new \Exception('<p>View file <b>$file_view</b> is not found ...</p>', 404);
         }
 
         $content = ob_get_clean();
@@ -69,7 +71,8 @@ class View
                 }
                 require_once $file_layout;
             } else {
-                echo "<p>Layout file <b>$file_layout</b> is not found ...</p>";
+//                echo "<p>Layout file <b>$file_layout</b> is not found ...</p>";
+                throw new \Exception('<p>Layout file <b>$file_layout</b> is not found ...', 404);
             }
         }
     }
