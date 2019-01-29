@@ -3,9 +3,11 @@
 namespace app\controllers;
 
 use app\models\Main;
-use vendor\core\App;
-use vendor\core\base\View;
-
+use fw\core\App;
+use fw\core\base\View;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class MainController extends AppController
 {
@@ -14,6 +16,23 @@ class MainController extends AppController
 
     public function indexAction()
     {
+        // create a log channel
+        $log = new Logger('name');
+        try {
+            $log->pushHandler(new StreamHandler(ROOT . '/tmp/monolog.log', Logger::WARNING));
+        } catch (\Exception $e) {
+        }
+//        var_dump($log);
+
+
+        // add records to the log
+        $log->warning('Foo');
+        $log->error('Bar');
+
+
+        /*$mailer = new PHPMailer();
+        var_dump($mailer);*/
+
 //        App::$app->getList();
 
 //        $model = new Main();

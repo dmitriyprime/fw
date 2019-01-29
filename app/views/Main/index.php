@@ -1,7 +1,7 @@
 <div class="container">
     <div class="answer"></div>
     <button class="btn btn-default" id="send" style="margin-bottom: 15px">Send AJAX request</button><br>
-    <?php new \vendor\widgets\menu\Menu([
+    <?php new \fw\widgets\menu\Menu([
             'tpl' => WWW . '/menu/select.php',
             'container' => 'select',
             'class' => 'my_select',
@@ -9,7 +9,7 @@
             'cache' => 60,
             'cacheKey' => 'menu_select',
     ]); ?>
-    <?php new \vendor\widgets\menu\Menu([
+    <?php new \fw\widgets\menu\Menu([
             'tpl' => WWW . '/menu/my_menu.php',
             'container' => 'ul',
             'class' => 'my_menu',
@@ -22,7 +22,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><?=$post['title'] ?></div>
                 <div class="panel-body">
-                    <?=$post['content'] ?>
+                    <?=$post['text'] ?>
                 </div>
             </div>
         <?php endforeach; ?>

@@ -1,0 +1,22 @@
+{
+    "name": "fw/fw",
+    "description": "test framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitriy Kogut",
+            "email": "kogut.dmitriy@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^1.24",
+        "phpmailer/phpmailer": "^6.0",
+        "vlucas/valitron": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "fw\\": "vendor/fw",
+            "app\\": "app"
+        }
+    }
+}

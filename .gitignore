@@ -1,3 +1,6 @@
 .idea/
 logs/
 tmp/
+/vendor/
+!/vendor/fw/**/*
+/public/test/error/*

@@ -1,8 +1,8 @@
 <?php
 
-namespace vendor\core;
+namespace fw\core;
 
-use vendor\core\ErrorHandler;
+use fw\core\ErrorHandler;
 
 class App
 {
@@ -10,6 +10,7 @@ class App
 
     public function __construct()
     {
+        session_start();
         self::$app = Registry::instance();
         new ErrorHandler();
     }
