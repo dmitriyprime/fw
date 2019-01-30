@@ -1,7 +1,8 @@
-.idea/
-/logs/
+/.idea
+/logs/*
 !/logs/.htaccess
-tmp/
-/vendor/
-!/vendor/fw/**/*
+/tmp/*
+!/tmp/.htaccess
+/vendor/*
+!/vendor/fw/
 /public/test/error/*
