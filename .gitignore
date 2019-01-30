@@ -1,5 +1,6 @@
 .idea/
-logs/
+/logs/
+!/logs/.htaccess
 tmp/
 /vendor/
 !/vendor/fw/**/*
