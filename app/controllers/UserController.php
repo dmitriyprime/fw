@@ -35,11 +35,21 @@ class UserController extends AppController
 
     public function loginAction()
     {
-
+        if(!empty($_POST)) {
+            $user = new User();
+            if($user->login()) {
+                $_SESSION['success'] = 'You have logged in successfully!';
+            } else {
+                $_SESSION['error'] = 'Login or password are not correct';
+            }
+            redirect('/');
+        }
+        View::setMeta('Sign in');
     }
 
     public function logoutAction()
     {
-
+        if(isset($_SESSION['user'])) unset($_SESSION['user']);
+        redirect('/user/login');
     }
 }

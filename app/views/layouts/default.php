@@ -48,6 +48,8 @@
         </div>
     <?php endif; ?>
 
+    <?php debug($_SESSION) ?>
+
     <?=$content ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
