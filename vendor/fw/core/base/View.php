@@ -76,9 +76,10 @@ class View
 
 //        ob_start([$this, 'compressPage']);
 
-        ob_start('ob_gzhandler');
+//        ob_start('ob_gzhandler');
+        ob_start();
         {
-            header("Content-Encoding: gzip");
+//            header("Content-Encoding: gzip");
             if(file_exists($file_view)) {
                 require_once $file_view;
             } else {

@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Main;
 use fw\core\App;
 use fw\core\base\View;
+use fw\libs\Pagination;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -26,8 +27,8 @@ class MainController extends AppController
 
 
         // add records to the log
-        $log->warning('Foo');
-        $log->error('Bar');
+//        $log->warning('Foo');
+//        $log->error('Bar');
 
 
         /*$mailer = new PHPMailer();
@@ -35,21 +36,27 @@ class MainController extends AppController
 
 //        App::$app->getList();
 
-//        $model = new Main();
 //        $posts = App::$app->cache->get('posts');
 
 //        if(!$posts){
-            $posts = \R::findAll('posts');
+//            $posts = \R::findAll('posts');
 //            App::$app->cache->set('posts', $posts, 3600*24);
 //        }
 
+        $model = new Main();
+        $total = \R::count('posts');
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perpage = 1;
+        $pagination = new Pagination($page, $perpage, $total);
+        $start = $pagination->getStart();
+        $posts = \R::findAll('posts', "LIMIT $start, $perpage");
+
+
+
         $menu = \R::findAll('category');
 
-        $title = 'PAGE TITLE';
-//        $this->setMeta('Home page', 'This is home page description', 'This is home page keywords');
-//        $meta = $this->meta;
         View::setMeta('Home page', 'This is home page description', 'This is home page keywords');
-        $this->set(compact('title', 'posts', 'menu', 'meta'));
+        $this->set(compact('title', 'posts', 'menu', 'meta', 'pagination', 'total'));
     }
 
     public function testAction()
