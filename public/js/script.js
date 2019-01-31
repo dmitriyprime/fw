@@ -1,3 +1,5 @@
 $(function () {
-    console.log($('#send').text());
+    $('#lang').change(function () {
+        window.location = '/language/change?lang=' + $(this).val();
+    });
 });

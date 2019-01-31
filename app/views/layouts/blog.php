@@ -84,6 +84,6 @@
         <p>Copyrights &copy; <?= date('Y') . ' - present'?> Blog All rights reserved | Template by <a href="http://w3layouts.com/">W3layouts</a></p>
     </div>
 </div>
-
+<script src="/public/js/script.js"></script>
 </body>
 </html>
