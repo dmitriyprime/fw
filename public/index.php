@@ -18,13 +18,6 @@ define('DS', DIRECTORY_SEPARATOR);
 require '../vendor/fw/libs/functions.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
-/*spl_autoload_register(function ($class) {
-    $file = ROOT . '/' . str_replace('\\', '/', $class) . '.php';
-    if (file_exists($file)) {
-        require_once $file;
-    }
-});*/
-
 new App();
 
 Router::add('^page/(?P<action>[a-z-]+)/(?P<alias>[a-z-]+)$', ['controller' => 'Page']);
